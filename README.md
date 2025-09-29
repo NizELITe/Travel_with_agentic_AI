@@ -1,7 +1,7 @@
 # 🌍 Travel Planner AI
 
-This project is an **AI-powered travel assistant** that helps users search for **flights and hotels** using natural language queries.  
-It combines **LLM reasoning** with a **Supabase database** to understand user requests and return accurate travel options.  
+This project is an **Agentic AI-powered travel assistant** that helps users search for **flights and hotels** using natural language queries.  
+It uses **LangGraph**, **LangChain**, and a **Supabase database** to reason about user requests and route them to the right agent.  
 
 ---
 
@@ -12,33 +12,57 @@ It combines **LLM reasoning** with a **Supabase database** to understand user re
   - *“Show me hotels in Dubai under $150 with 4-star ratings”*  
 
 - The system automatically:  
-  1. Understands the query using **LangGraph + LangChain with Ollama**  
-  2. Decides whether the query is about **flights** or **hotels**  
-  3. Queries the **Supabase database** for matching results  
-  4. Returns a clean and structured response  
+  1. Interprets the query using **LangChain + Ollama**  
+  2. Uses a **LangGraph router** to decide whether it’s a **flight** or **hotel** request  
+  3. Calls the respective **Agent** (Flight Agent / Hotel Agent)  
+  4. Queries **Supabase** for structured travel data  
+  5. Returns a clean result to the user via a **Flask web app**  
 
 ---
 
-## 🎯 Use Case
+## 🧠 Agentic AI Workflow (LangGraph + LangChain)
 
-The project is designed to **simplify travel planning** by allowing users to search in plain language instead of filling multiple forms.  
-Potential applications:  
+This project demonstrates how **Agentic AI** works with multiple specialized agents:  
 
-- 🧳 Personal travel planning  
-- 🏨 Hotel comparison tool  
-- ✈️ Flight search chatbot  
-- 🌐 Integration into travel agencies’ websites  
+- **Router (LangGraph)**: Acts as the **decision-maker**, routing queries to the correct agent  
+- **Flight Agent**: Handles flight-related queries and fetches from Supabase  
+- **Hotel Agent**: Handles hotel-related queries and fetches from Supabase  
+- **Supabase Client**: Connects agents to a structured travel database  
+- **LangChain Integration**: Provides LLM reasoning, query parsing, and response formatting  
+
+This **modular, agentic design** makes the system scalable — new agents (e.g., Car Rentals, Tours) can be added easily.  
+
+---
+
+## 🎯 Use Cases
+
+- 🧳 **Personal Travel Planning** – Quickly find flights & hotels  
+- 🏨 **Hotel Comparison** – Filter hotels by budget, rating, location  
+- ✈️ **Flight Search Chatbot** – Ask in plain English instead of using forms  
+- 🌐 **Travel Agency Integration** – Add conversational AI to travel websites  
 
 ---
 
 ## 📂 Project Components
 
-- **Flight Agent** → Handles flight-related queries  
-- **Hotel Agent** → Handles hotel-related queries  
-- **Router** → Decides which agent to use  
-- **Supabase Client** → Connects to travel database  
-- **Flask Web App + Frontend** → Provides a simple UI for users  
+- `flight_agent.py` → Handles flight-related queries  
+- `hotel_agent.py` → Handles hotel-related queries  
+- `router.py` → LangGraph router that decides query type  
+- `supabase_client.py` → Connects to travel database  
+- `main.py` → Flask web app entry point  
+- `templates/` → Jinja2 templates (index, results, base layout)  
+- `static/` → CSS & JS frontend files  
 
 ---
 
-This project demonstrates how **AI + databases + web apps** can work together to make real-world tasks (like booking travel) easier and smarter.  
+## 🚀 Tech Stack
+
+- **LangGraph** → Multi-agent orchestration  
+- **LangChain** → LLM reasoning and query parsing  
+- **Ollama** → Local LLM integration  
+- **Supabase** → Travel database backend  
+- **Flask** → Web framework for frontend + backend integration  
+
+---
+
+This project demonstrates how **Agentic AI (LangGraph + LangChain)** can be applied in **real-world travel planning**, combining reasoning, routing, and database querying in a clean workflow.  
