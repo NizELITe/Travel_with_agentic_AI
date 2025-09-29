@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+  <form method="post">
+    <input type="text" name="query" placeholder="Ask for hotels or flights..." required>
+    <button type="submit">Search</button>
+  </form>
+  {% if error %}
+    <p class="error">{{ error }}</p>
+  {% endif %}
+{% endblock %}
+<script src="{{ url_for('static', filename='script.js') }}"></script>

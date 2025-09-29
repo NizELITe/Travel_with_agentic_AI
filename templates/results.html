@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2>Results for: "{{ query }}"</h2>
+
+  {% if results.hotel_result %}
+    <h3>🏨 Hotels</h3>
+    <ul>
+      {% for h in results.hotel_result %}
+        <li>
+          <strong>{{ h["hotel_name"] }}</strong>  
+          - ${{ h["price_per_night"] }}  
+          - ⭐ {{ h["rating"] }}  
+          - 📍 {{ h["location"] }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  {% if results.flight_result %}
+    <h3>✈️ Flights</h3>
+    <ul>
+      {% for f in results.flight_result %}
+        <li>
+          {{ f["origin"] }} → {{ f["destination"] }}  
+          on {{ f["departure_date"] }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  {% if not results.hotel_result and not results.flight_result %}
+    <p>No results found.</p>
+  {% endif %}
+
+  <a href="{{ url_for('index') }}">🔙 New Search</a>
+{% endblock %}
